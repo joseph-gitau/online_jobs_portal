@@ -1,7 +1,10 @@
 <?php
 $path_old =  dirname(__FILE__);
 $path2 = str_replace("\\", "/", $path_old);
-$path = str_replace($_SERVER['DOCUMENT_ROOT'], "", $path2);
+$path3 = str_replace($_SERVER['DOCUMENT_ROOT'], "", $path2);
+// remove accounts/customer from path
+$path = str_replace("accounts/customer", "", $path3);
+echo $path;
 ?>
 
 <!DOCTYPE html>
