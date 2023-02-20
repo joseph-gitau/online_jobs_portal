@@ -1,8 +1,18 @@
 <?php
-// if seession is not started, start it
+// if session is not started, start it
 
 if (!isset($_SESSION)) {
     session_start();
+}
+// if $_SESSION['id'] and $_SESSION['username] is not set then redirect to login page with the page as referer page
+if (!isset($_SESSION['user_id']) && !isset($_SESSION['username'])) {
+    $_SESSION['referer_page'] = $_SERVER['REQUEST_URI'];
+    header("Location: ../auth/login.php");
+} else {
+    $user_type = $_SESSION['user_type'];
+    $user_id = $_SESSION['user_id'];
+    /* echo $user_type;
+    echo $user_id; */
 }
 
 ?>
@@ -14,13 +24,17 @@ if (!isset($_SESSION)) {
     // include header_links.php
     include '../partials/header_links.php';
     ?>
-    <link rel="stylesheet" type="text/css" href="style.css?v<?php echo rand(); ?>">
-
     <title>online jobs portal Register</title>
 
 </head>
 
 <body>
+    <header>
+        <?php
+        // include header.php
+        include '../partials/header.php';
+        ?>
+    </header>
     <div class="container" id="container">
         <div class="header">
             <h2>online jobs portal Register</h2>

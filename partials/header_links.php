@@ -10,7 +10,7 @@
 <!-- jquery -->
 <script src="../js/jquery.js"></script>
 <script src="../resources\libraries\chosen_v1.8.7_2\chosen.jquery.js"></script>
-<link rel="stylesheet" type="text/css" href="style.css?v" <?php echo rand(); ?>>
+<link rel="stylesheet" type="text/css" href="../css/style.css?v<?php echo rand(); ?>">
 <!-- sweetalert -->
 <script src="../js/sweetalert.min.js"></script>
 <!-- waitme -->

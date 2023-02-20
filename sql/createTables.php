@@ -147,7 +147,14 @@
             n_status VARCHAR(10) NOT NULL,
             n_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )";
-
+        // qualifications table
+        $sql4 = "CREATE TABLE IF NOT EXISTS qualifications (
+            q_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            u_id INT(11) NOT NULL,
+            q_cv TEXT NOT NULL,
+            q_resume VARCHAR(255) NOT NULL,
+            q_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )";
         /* $sql1 = "CREATE TABLE IF NOT EXISTS student1 (
         id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(25) NOT NULL
@@ -156,7 +163,7 @@
         /*$statements[] = $sql1;
         $statements[] =  $sql2;
         $statements[] =  $sql3;
-         $statements[] =  $sql4; */
+        $statements[] =  $sql4;*/
 
         // print_r($statements);
         foreach ($statements as $s) {

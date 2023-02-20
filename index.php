@@ -38,26 +38,7 @@ $path = str_replace($_SERVER['DOCUMENT_ROOT'], "", $path2);
 <body>
     <div class="container">
         <header>
-            <nav>
-                <!-- logo -->
-                <div class="logo">
-                    <a href="index.php">Online jobs portal</a>
-                </div>
-                <!-- search -->
-                <div class="search">
-                    <form action="search.php" method="GET">
-                        <input type="text" name="search" placeholder="Search a job or a talent">
-                        <button type="submit">Search</button>
-                    </form>
-                </div>
-                <ul>
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="jobseeker/login.php">Job seekers</a></li>
-                    <li><a href="employer/login.php">Employers</a></li>
-                    <li><a href="auth/register.php">Register</a></li>
-                    <li><a href="login.php">Login</a></li>
-                </ul>
-            </nav>
+            <?php include_once 'partials/header.php'; ?>
         </header>
         <!-- nw -->
         <div class="main">
