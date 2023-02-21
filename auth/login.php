@@ -9,6 +9,11 @@ if (!isset($_SESSION)) {
 
 <head>
     <title>Login - Online Patient Information Management System (OPIMS):</title>
+
+    <?php
+    // include header_links.php
+    include '../partials/header_links.php';
+    ?>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
@@ -18,38 +23,38 @@ if (!isset($_SESSION)) {
     </div>
 
     <form method="post" action="../reg_exe.php">
-        <?php
-        // if session msg is set, display it
-        if (isset($_SESSION['msg'])) {
-            echo $_SESSION['msg'];
-            // unset the session msg
-            unset($_SESSION['msg']);
-            // if session errors is set, display it
-            if (isset($_SESSION['errors'])) {
-                // loop through the errors
-                foreach ($_SESSION['errors'] as $error) {
-                    echo "<p class='error'>" . $error . "</p>";
-                }
-                // unset the errors
-                unset($_SESSION['errors']);
-            }
-        }
-        ?>
+
         <div class="input-group">
             <label>Username</label>
-            <input type="text" name="username">
+            <input type="text" name="username" id="username">
         </div>
         <div class="input-group">
             <label>Password</label>
-            <input type="password" name="password">
+            <input type="password" name="password" id="password">
         </div>
         <div class="input-group">
-            <button type="submit" class="btn" name="login_user">Login</button>
+            <button type="submit" class="btn" id="login" name="login_user">Login</button>
         </div>
         <p>
             Not yet a member? <a href="register.php">Sign up</a>
         </p>
     </form>
+
+    <?php
+    // include footer_scripts.php
+    include '../partials/footer_scripts.php';
+    ?>
+
+    <script>
+        <?php
+        // echo $_SESSION['referer_page   '] in js variable
+        if (isset($_SESSION['referer_page'])) {
+            echo "var referer_page = '" . $_SESSION['referer_page'] . "';";
+        } else {
+            echo "var referer_page = 'index.php';";
+        }
+        ?>
+    </script>
 </body>
 
 </html>

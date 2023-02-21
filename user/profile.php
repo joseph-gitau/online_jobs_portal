@@ -139,14 +139,32 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['username'])) {
 
                 <div class="uploaded">
                     <h3>Uploaded cv, and resume</h3>
-                    <div class="cv">
+                    <?php
+                    $sqlr = "SELECT * FROM qualifications WHERE u_id = '$user_id'";
+                    $resultr = mysqli_query($conn, $sqlr);
+                    $rowr = mysqli_fetch_assoc($resultr);
+                    $cv = $rowr['q_cv'];
+                    $resume = $rowr['q_resume'];
+                    if ($cv == '') {
+                        echo '<div class="cv">
+                        <h4>CV</h4>
+                        <p>No cv foumd!</p>
+                    </div>';
+                    } else {
+                        echo '<div class="cv">
+                        <h4>CV</h4>
+                        <p>' . $cv . '</p>
+                    </div>';
+                    }
+                    ?>
+                    <!-- <div class="cv">
                         <h4>CV</h4>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
                     </div>
                     <div class="resume">
                         <h4>Resume</h4>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
-                    </div>
+                    </div> -->
                 </div>
                 <form action="../reg_exe.php" method="POST" enctype="multipart/form-data">
                     <div class="header">
@@ -160,11 +178,11 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['username'])) {
                     <!-- resume upload -->
                     <div class="form-control">
                         <label for="resume">Resume</label>
-                        <input type="file" name="resume" id="resume">
+                        <input type="file" name="resume" id="resume" accept="application/pdf,application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                     </div>
                     <!-- upload -->
                     <div class="form-control">
-                        <button type="submit" name="upload_qualification">Upload</button>
+                        <button type="submit" name="upload_qualification" id="upload_qualification">Upload</button>
                     </div>
                 </form>
             </div>
