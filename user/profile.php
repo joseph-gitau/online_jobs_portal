@@ -133,31 +133,35 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['username'])) {
                     <button type="submit" name="update_details" id="update_details">Update Details</button>
                 </div>
             </form>
-            <!-- upload qualifications -->
-            <div class="qualification">
-                <!-- show uploaded cv and resume -->
+            <?php if ($user_type == 2) { ?>
+                <!-- upload qualifications -->
+                <div class="qualification">
+                    <!-- show uploaded cv and resume -->
 
-                <div class="uploaded">
-                    <h3>Uploaded cv, and resume</h3>
-                    <?php
-                    $sqlr = "SELECT * FROM qualifications WHERE u_id = '$user_id'";
-                    $resultr = mysqli_query($conn, $sqlr);
-                    $rowr = mysqli_fetch_assoc($resultr);
-                    $cv = $rowr['q_cv'];
-                    $resume = $rowr['q_resume'];
-                    if ($cv == '') {
-                        echo '<div class="cv">
-                        <h4>CV</h4>
-                        <p>No cv foumd!</p>
-                    </div>';
-                    } else {
-                        echo '<div class="cv">
-                        <h4>CV</h4>
-                        <p>' . $cv . '</p>
-                    </div>';
-                    }
-                    ?>
-                    <!-- <div class="cv">
+                    <div class="uploaded">
+                        <h3>Uploaded cv, and resume</h3>
+                        <?php
+                        $sqlr = "SELECT * FROM qualifications WHERE u_id = '$user_id'";
+                        $resultr = mysqli_query($conn, $sqlr);
+                        $rowr = mysqli_fetch_assoc($resultr);
+                        $tot = mysqli_num_rows($resultr);
+                        if ($tot > 0) {
+                            $cv = $rowr['q_cv'];
+                            $resume = $rowr['q_resume'];
+                            if ($cv == '') {
+                                echo '<div class="cv">
+                                <h4>CV</h4>
+                                <p>No cv foumd!</p>
+                            </div>';
+                            } else {
+                                echo '<div class="cv">
+                                <h4>CV</h4>
+                                <p>' . $cv . '</p>
+                            </div>';
+                            }
+                        }
+                        ?>
+                        <!-- <div class="cv">
                         <h4>CV</h4>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
                     </div>
@@ -165,27 +169,29 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['username'])) {
                         <h4>Resume</h4>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
                     </div> -->
+                    </div>
+                    <form action="../reg_exe.php" method="POST" enctype="multipart/form-data">
+                        <div class="header">
+                            <h2>Qualifications</h2>
+                        </div>
+                        <!-- cv  -->
+                        <div class="form-control">
+                            <label for="cv">CV</label>
+                            <textarea name="cv" id="cv" cols="30" rows="10"></textarea>
+                        </div>
+                        <!-- resume upload -->
+                        <div class="form-control">
+                            <label for="resume">Resume</label>
+                            <input type="file" name="resume" id="resume" accept="application/pdf,application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                        </div>
+                        <!-- upload -->
+                        <div class="form-control">
+                            <button type="submit" name="upload_qualification" id="upload_qualification">Upload</button>
+                        </div>
+                    </form>
                 </div>
-                <form action="../reg_exe.php" method="POST" enctype="multipart/form-data">
-                    <div class="header">
-                        <h2>Qualifications</h2>
-                    </div>
-                    <!-- cv  -->
-                    <div class="form-control">
-                        <label for="cv">CV</label>
-                        <textarea name="cv" id="cv" cols="30" rows="10"></textarea>
-                    </div>
-                    <!-- resume upload -->
-                    <div class="form-control">
-                        <label for="resume">Resume</label>
-                        <input type="file" name="resume" id="resume" accept="application/pdf,application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
-                    </div>
-                    <!-- upload -->
-                    <div class="form-control">
-                        <button type="submit" name="upload_qualification" id="upload_qualification">Upload</button>
-                    </div>
-                </form>
-            </div>
+                <!-- nw -->
+            <?php } ?>
         </div>
     </div>
 

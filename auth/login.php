@@ -19,7 +19,7 @@ if (!isset($_SESSION)) {
 
 <body>
     <div class="header">
-        <h2>OPIMS Login</h2>
+        <h2>Online jobs portal Login</h2>
     </div>
 
     <form method="post" action="../reg_exe.php">
@@ -47,10 +47,22 @@ if (!isset($_SESSION)) {
 
     <script>
         <?php
+        // get user type from session
+        $user_type = $_SESSION['user_type'];
+        // echo user type in js variable
+        echo "var user_type = '" . $user_type . "';";
+
         // echo $_SESSION['referer_page   '] in js variable
         if (isset($_SESSION['referer_page'])) {
             echo "var referer_page = '" . $_SESSION['referer_page'] . "';";
-        } else {
+        } elseif ($user_type == '3') {
+            // if user type is 3 then redirect to admin dashboard
+            echo "var referer_page = '../user/employer.php';";
+        } elseif ($user_type == '2') {
+            // if user type is 2 then redirect to user dashboard
+            echo "var referer_page = '../user/dashboard.php';";
+        } elseif ($user_type == '1') {
+            // if user type is 1 then redirect to user dashboard
             echo "var referer_page = 'index.php';";
         }
         ?>

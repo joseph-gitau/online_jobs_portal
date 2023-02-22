@@ -127,7 +127,7 @@ if (isset($_POST['login'])) {
         // pass the referer page js variable
         // echo '<script>var referer_page = "' . $referer_page . '";</script>';
     } else {
-        $referer_page = 'user/dashboard.php';
+        $referer_page = 'index.php';
         // pass the referer page js variable
         // echo '<script>var referer_page = "' . $referer_page . '";</script>';
     }
@@ -154,7 +154,7 @@ if (isset($_POST['login'])) {
             $db_id = $row['u_id'];
             /* echo $db_password;
             echo $password;
-            echo password_hash($password, PASSWORD_DEFAULT); */
+            echo password_hash('123', PASSWORD_DEFAULT) . 'ret';*/
 
             // verify password
             if (password_verify($password, $db_password)) {

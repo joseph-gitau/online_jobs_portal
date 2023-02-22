@@ -15,6 +15,7 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['username'])) {
     $user_type = $_SESSION['user_type'];
     $user_id = $_SESSION['user_id'];
 }
+// $user_type = 3;
 if ($user_type == 2) {
 
 ?>
@@ -53,11 +54,12 @@ if ($user_type == 2) {
             </form>
         </div>
         <ul>
-            <li><a href="index.php">Home</a></li>
+            <li><a href="../user/employer.php">Home</a></li>
             <li><a href="jobseeker/login.php">Job seekers</a></li>
-            <li><a href="employer/login.php">Employers</a></li>
-            <li><a href="auth/register.php">Register</a></li>
-            <li><a href="login.php">Login</a></li>
+            <li><a href="employer/login.php">Your postings</a></li>
+            <li><a href="auth/register.php">Messages</a></li>
+            <li><a href="profile.php">Profile</a></li>
+            <li><a href="../auth/logout.php">Logout</a></li>
         </ul>
     </nav>
 <?php } ?>
