@@ -33,7 +33,7 @@ if ($user_type == 2) {
             </form>
         </div>
         <ul>
-            <li><a href="index.php">Browse jobs</a></li>
+            <li><a href="../user/dashboard.php">Browse jobs</a></li>
             <li><a href="jobseeker/login.php">Employers</a></li>
             <li><a href="auth/register.php">Messages</a></li>
             <li><a href="../user/profile.php" id="profile-u">Profile</a></li>
@@ -56,7 +56,7 @@ if ($user_type == 2) {
         <ul>
             <li><a href="../user/employer.php">Home</a></li>
             <li><a href="jobseeker/login.php">Job seekers</a></li>
-            <li><a href="employer/login.php">Your postings</a></li>
+            <li><a href="../user/job-posting.php">Your postings</a></li>
             <li><a href="auth/register.php">Messages</a></li>
             <li><a href="profile.php">Profile</a></li>
             <li><a href="../auth/logout.php">Logout</a></li>

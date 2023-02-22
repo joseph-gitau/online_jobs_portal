@@ -15,6 +15,12 @@
 <script src="../js/sweetalert.min.js"></script>
 <!-- waitme -->
 <link rel="stylesheet" href="../Resources/libraries/Animations-waitMe/waitMe.css">
+<!-- jquery.modal.min.js -->
+<script src="../js/jquery.modal.min.js"></script>
+<!-- jquery.modal.min.css -->
+<link rel="stylesheet" href="../css/jquery.modal.min.css" />
+<!-- font awesome -->
+<link rel="stylesheet" href="../Resources\fontawesome-free-5.15.4-web\css\all.min.css" />
 <script type="text/javascript">
     $(document).ready(function() {
         $('.chosen-select').chosen();

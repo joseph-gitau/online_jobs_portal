@@ -87,7 +87,7 @@ $(document).ready(function () {
 });
 
 function run_waitMe(effect) {
-    $('#container').waitMe({
+    $('#container, #job-post').waitMe({
 
         //none, rotateplane, stretch, orbit, roundBounce, win8, 
         //win8_linear, ios, facebook, rotation, timer, pulse, 
@@ -231,7 +231,7 @@ $("#upload_qualification").click(function () {
     event.preventDefault();
     run_waitMe();
     var file = $('#resume')[0].files[0];
-    console.log(file);
+    // console.log(file);
     // if resume is not selected 
     if (file == '' || file == null || file == 'undefined') {
         // resume = 'no_file' pass dummy value
@@ -275,4 +275,113 @@ $("#upload_qualification").click(function () {
         }
 
     });
+});
+// add-jobps
+$("#add-jobps").click(function () {
+    event.preventDefault();
+    run_waitMe();
+    var file = $('#job-attachment')[0].files[0];
+    if (file == '' || file == null || file == 'undefined') {
+        place = 'no_file';
+    } else {
+        place = 'Yes';
+    }
+    var formData = new FormData();
+    formData.append('add-jobps', true);
+    formData.append('title', $('#job-title').val());
+    formData.append('description', $('#job-description').val());
+    formData.append('type', $('#job-type').val());
+    formData.append('category', $('#job-category').val());
+    formData.append('location', $('#job-location').val());
+    formData.append('salary', $('#job-salary').val());
+    formData.append('image', file);
+    formData.append('place', place)
+    $.ajax({
+        url: '../reg_exe.php',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            $('#container, #job-post').waitMe('hide');
+            if (data == "success") {
+                // swal success
+                swal({
+                    title: "Success",
+                    text: "Job posted successfully",
+                    icon: "success",
+                    button: "OK",
+                }).then(function () {
+                    // reload page
+                    location.reload();
+                });
+            } else {
+                // console.log(data);
+                // swal error
+                swal("Error", data, "error", {
+                    button: "OK",
+                });
+            }
+
+        }
+
+    });
+
+});
+//delete-posting 
+$('.delete-posting').click(function () {
+    // get id
+    var id = $(this).attr('id');
+    // swal confirm
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this job posting!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    }).then((willDelete) => {
+        if (willDelete) {
+            // run waitme
+            run_waitMe();
+            // ajax delete
+            $.ajax({
+                url: '../reg_exe.php',
+                type: 'POST',
+                data: {
+                    delete_posting: true,
+                    id: id,
+                },
+                success: function (data) {
+                    $('#container').waitMe('hide');
+                    if (data == "success") {
+                        // swal success
+                        swal({
+                            title: "Success",
+                            text: "Job posting deleted successfully",
+                            icon: "success",
+                            button: "OK",
+                        }).then(function () {
+                            // reload page
+                            location.reload();
+                        });
+                    } else {
+                        // swal error
+                        swal("Error", data, "error", {
+                            button: "OK",
+                        });
+                    }
+                }
+            });
+        } else {
+            swal("Your job posting is safe!");
+        }
+    });
+});
+// edit-posting
+$('.edit-posting-d').click(function () {
+    // get id
+    var id = $(this).attr('id');
+    // open edit modal with data
+
+
 });

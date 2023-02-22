@@ -237,3 +237,75 @@ if (isset($_POST['upload_qualification'])) {
         }
     }
 }
+
+// add-jobps
+if (isset($_POST['add-jobps'])) {
+    $uid = $_SESSION['user_id'];
+    $title = mysqli_real_escape_string($conn, $_POST['title']);
+    $description = mysqli_real_escape_string($conn, $_POST['description']);
+    $type = mysqli_real_escape_string($conn, $_POST['type']);
+    $category = mysqli_real_escape_string($conn, $_POST['category']);
+    $location = mysqli_real_escape_string($conn, $_POST['location']);
+    $salary = mysqli_real_escape_string($conn, $_POST['salary']);
+    $place = mysqli_real_escape_string($conn, $_POST['place']);
+    if ($place == 'no_file') {
+        $file = '';
+    } else {
+        $file = $_FILES['image']['name'];
+        // var_dump($_FILES['image']);
+        // echo 'here';
+    }
+    $errors = [];
+    if (empty($title)) {
+        $errors['title'] = 'Title is required';
+    }
+    if (empty($description)) {
+        $errors['description'] = 'Description is required';
+    }
+    if (empty($type)) {
+        $errors['type'] = 'Type is required';
+    }
+    if (empty($category)) {
+        $errors['category'] = 'Category is required';
+    }
+    if (empty($location)) {
+        $errors['location'] = 'Location is required';
+    }
+    if (empty($salary)) {
+        $errors['salary'] = 'Salary is required';
+    }
+    if (count($errors) == 0) {
+        if (!empty($file)) {
+            // add user id to file name
+            $file = $uid . '_' . $file;
+            $target = "resources/jobps/" . basename($file);
+
+            // move renamed file to folder
+            move_uploaded_file($_FILES['image']['tmp_name'], $target);
+        }
+        $sql = "INSERT INTO job_post(u_id, jp_title, jp_description, jp_type, jp_category, jp_location, jp_salary, jp_image) VALUES('$uid', '$title', '$description', '$type', '$category', '$location', '$salary', '$file')";
+        $result = mysqli_query($conn, $sql);
+        if (!$result) {
+            echo 'Error: ' . mysqli_error($conn);
+        } else {
+            echo 'success';
+        }
+    } else {
+        // loop through the errors and display them
+        foreach ($errors as $error) {
+            echo '=> ' . $error;
+        }
+    }
+}
+
+// delete_posting
+if (isset($_POST['delete_posting'])) {
+    $id = $_POST['id'];
+    $sql = "DELETE FROM job_post WHERE jp_id = '$id'";
+    $result = mysqli_query($conn, $sql);
+    if (!$result) {
+        echo 'Error: ' . mysqli_error($conn);
+    } else {
+        echo 'success';
+    }
+}

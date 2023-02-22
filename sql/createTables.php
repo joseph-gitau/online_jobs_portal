@@ -81,7 +81,7 @@
         }
     </style>
     <!-- jquery -->
-    <script src="../js/jQuery-3.6.2.js"></script>
+    <script src="../js/jquery.js"></script>
 </head>
 
 <body>
@@ -155,6 +155,20 @@
             q_resume VARCHAR(255) NOT NULL,
             q_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )";
+        // job-post table
+        $sql5 = "CREATE TABLE IF NOT EXISTS job_post (
+            jp_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            u_id INT(11) NOT NULL,
+            jp_title VARCHAR(255) NOT NULL,
+            jp_description TEXT NOT NULL,
+            jp_type VARCHAR(255) NOT NULL,
+            jp_category VARCHAR(255) NOT NULL,
+            jp_location VARCHAR(255) NOT NULL,
+            jp_salary VARCHAR(255) NOT NULL,
+            jp_status VARCHAR(10) NOT NULL DEFAULT 'active',
+            jp_image VARCHAR(255) NOT NULL,
+            jp_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )";
         /* $sql1 = "CREATE TABLE IF NOT EXISTS student1 (
         id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(25) NOT NULL
@@ -164,6 +178,7 @@
         $statements[] =  $sql2;
         $statements[] =  $sql3;
         $statements[] =  $sql4;*/
+        // $statements[] = $sql5;
 
         // print_r($statements);
         foreach ($statements as $s) {
@@ -187,7 +202,9 @@
         $sql3 = "DROP TABLE IF EXISTS roles";
         dropTable($sql3);
         $sql4 = "DROP TABLE IF EXISTS users";
-        dropTable($sql4); */
+        dropTable($sql4); 
+        $sql5 = "DROP TABLE IF EXISTS job_post";
+        dropTable($sql5);*/
 
 
 

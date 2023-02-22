@@ -40,10 +40,10 @@ h1 {
   margin-bottom: 1rem;
 }
 h2 {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 500;
   color: #0000ff;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 /* nav */
 nav {
@@ -110,6 +110,9 @@ textarea:focus {
   background-color: #0000ec;
   color: #fff;
   transition: 0.3s ease-in-out;
+}
+.btn-danger {
+  background-color: #ff0000;
 }
 /* main */
 .main {
@@ -203,10 +206,10 @@ textarea:focus {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .profile form h2 {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 500;
   color: #000;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 .profile label {
   font-size: 1.1rem;
@@ -232,4 +235,94 @@ textarea:focus {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.jobs {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  /* background-color: red; */
+}
+.jobs .header {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.jobs .add-new {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+.card {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+.card-header {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.card-body {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.card-body-left {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.card-body-right {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.card-footer {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+#job-post .chosen-container {
+  width: 300px !important;
 }

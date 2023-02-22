@@ -37,50 +37,42 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['username'])) {
         ?>
     </header>
     <div class="container" id="container">
-        <div class="header">
-            <h2>online jobs portal Register</h2>
+        <div class="jobs">
+            <div class="header">
+                <h2>Browse job listings</h2>
+            </div>
+
+            <?php
+            include '../dbh.php';
+            $sql = "SELECT * FROM job_post WHERE jp_status = 'active'";
+            $result = mysqli_query($conn, $sql);
+            $resultCheck = mysqli_num_rows($result);
+            if ($resultCheck > 0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo '
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>' . $row['jp_title'] . '</h3>
+                            <p>' . $row['jp_description'] . '</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-body-left">
+                                <p>' . $row['jp_type'] . '</p>
+                                <p>' . $row['jp_category'] . '</p>
+                                <p>' . $row['jp_location'] . '</p>
+                                <p>' . $row['jp_salary'] . '</p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="#" class="btn" id="' . $row['jp_id'] . '"><i class="fas fa-phone"></i> Contact employer</a>
+                        </div>
+                    </div>
+                    ';
+                }
+            }
+            ?>
         </div>
 
-        <form method="post" action="../reg_exe.php" id="register_form">
-            <div class="input-group">
-                <label>Full name</label>
-                <input type="text" name="name" id="name" value="">
-            </div>
-            <div class="input-group">
-                <label>Username</label>
-                <input type="text" name="username" id="username" value="">
-            </div>
-            <div class="input-group">
-                <label>Email</label>
-                <input type="email" name="email" id="email" value="">
-            </div>
-            <div class="input-group">
-                <label>Phone</label>
-                <input type="text" name="phone" id="phone" value="">
-            </div>
-            <div class="input-group">
-                <label>Password</label>
-                <input type="password" name="password_1" id="password_1">
-            </div>
-            <div class="input-group">
-                <label>Confirm password</label>
-                <input type="password" name="password_2" id="password_2">
-            </div>
-            <!-- role -->
-            <div class="input-group">
-                <label>Role</label>
-                <select name="role" class="chosen-select" id="role">
-                    <option value="jobseeker">Jobseeker</option>
-                    <option value="employer">Employer</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <button type="submit" class="btn register_user" id="register_user" name="register_user">Register</button>
-            </div>
-            <p>
-                Already a member? <a href="login.php">Sign in</a>
-            </p>
-        </form>
     </div>
 
     <?php
