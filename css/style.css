@@ -285,7 +285,6 @@ textarea:focus {
   align-items: center;
   justify-content: space-between;
   padding: 10px;
-  border-bottom: 1px solid #ccc;
 }
 .card-body {
   width: 100%;
@@ -294,7 +293,6 @@ textarea:focus {
   align-items: center;
   justify-content: space-between;
   padding: 10px;
-  border-bottom: 1px solid #ccc;
 }
 .card-body-left {
   width: 100%;
@@ -325,4 +323,19 @@ textarea:focus {
 }
 #job-post .chosen-container {
   width: 300px !important;
+}
+.attachments {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.txt-desc {
+  max-height: 100px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }

@@ -169,6 +169,16 @@
             jp_image VARCHAR(255) NOT NULL,
             jp_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )";
+        // messages table
+        $sql6 = "CREATE TABLE IF NOT EXISTS messages (
+            m_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            u_id INT(11) NOT NULL,
+            jp_id INT(11) NOT NULL,
+            m_title VARCHAR(255) NOT NULL,
+            m_message TEXT NOT NULL,
+            m_status VARCHAR(10) NOT NULL,
+            m_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )";
         /* $sql1 = "CREATE TABLE IF NOT EXISTS student1 (
         id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(25) NOT NULL
@@ -179,6 +189,7 @@
         $statements[] =  $sql3;
         $statements[] =  $sql4;*/
         // $statements[] = $sql5;
+        // $statements[] = $sql6;
 
         // print_r($statements);
         foreach ($statements as $s) {
@@ -205,6 +216,8 @@
         dropTable($sql4); 
         $sql5 = "DROP TABLE IF EXISTS job_post";
         dropTable($sql5);*/
+        // $sql6 = "DROP TABLE IF EXISTS messages";
+        // dropTable($sql6);
 
 
 

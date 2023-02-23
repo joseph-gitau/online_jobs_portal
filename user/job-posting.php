@@ -52,11 +52,12 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['username'])) {
             $resultCheck = mysqli_num_rows($result);
             if ($resultCheck > 0) {
                 while ($row = mysqli_fetch_assoc($result)) {
+                    $attachment = $row['jp_image'];
                     echo '
                     <div class="card">
                         <div class="card-header">
                             <h3>' . $row['jp_title'] . '</h3>
-                            <p>' . $row['jp_description'] . '</p>
+                            <p class="txt-desc">' . $row['jp_description'] . '</p>
                         </div>
                         <div class="card-body">
                             <div class="card-body-left">
@@ -66,6 +67,22 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['username'])) {
                                 <p>' . $row['jp_salary'] . '</p>
                             </div>
                         </div>
+                        <div class="attachments">
+                            <h3>Attachments</h3>';
+                    if ($attachment != '') {
+                        echo '
+                        <ul>
+                            <li><a href="../resources/jobps/' . $attachment . '" target="_blank">' . $attachment . '</a></li>
+                        </ul>
+                        ';
+                    } else {
+                        echo '
+                        <p>No attachments</p>
+                        
+                        ';
+                    }
+
+                    echo '</div> 
                         <div class="card-footer">
                             <a href="#" class="btn"><i class="fas fa-edit"></i> Edit</a>
                             <a href="#" class="delete-posting btn btn-danger" id="' . $row['jp_id'] . '"><i class="fas fa-trash"></i> Delete</a>
@@ -89,6 +106,14 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['username'])) {
                         <p>Ksh 1,000</p>
                     </div>
 
+                </div>
+                <div class="attachments">
+                    <h3>Attachments</h3>
+                    <ul>
+                        <li><a href="#">job-description.pdf</a></li>
+                        <li><a href="#">job-description.pdf</a></li>
+                        <li><a href="#">job-description.pdf</a></li>
+                    </ul>
                 </div>
                 <div class="card-footer">
                     <a href="#" class="btn"><i class="fas fa-edit"></i> Edit</a>

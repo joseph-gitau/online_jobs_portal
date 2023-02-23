@@ -49,28 +49,78 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['username'])) {
             $resultCheck = mysqli_num_rows($result);
             if ($resultCheck > 0) {
                 while ($row = mysqli_fetch_assoc($result)) {
+                    $attachment = $row['jp_image'];
                     echo '
                     <div class="card">
                         <div class="card-header">
-                            <h3>' . $row['jp_title'] . '</h3>
-                            <p>' . $row['jp_description'] . '</p>
+                            <h3 class="title">' . $row['jp_title'] . '</h3>
+                            <p class="txt-desc">' . $row['jp_description'] . '</p>
                         </div>
                         <div class="card-body">
                             <div class="card-body-left">
                                 <p>' . $row['jp_type'] . '</p>
                                 <p>' . $row['jp_category'] . '</p>
                                 <p>' . $row['jp_location'] . '</p>
-                                <p>' . $row['jp_salary'] . '</p>
+                                <p>' . $row['jp_salary'] .
+                        '</p>
                             </div>
                         </div>
+                        <div class="attachments">
+                            <h3>Attachments</h3>';
+                    if ($attachment != '') {
+                        echo '
+                        <ul>
+                            <li><a href="../resources/jobps/' . $attachment . '" target="_blank">' . $attachment . '</a></li>
+                        </ul>
+                        ';
+                    } else {
+                        echo '
+                        <p>No attachments</p>
+                        
+                        ';
+                    }
+
+                    echo '</div>
                         <div class="card-footer">
-                            <a href="#" class="btn" id="' . $row['jp_id'] . '"><i class="fas fa-phone"></i> Contact employer</a>
+                            <a href="#message" rel="modal:open" class="btn contact-employer" id="' . $row['jp_id'] . '"><i class="fas fa-phone"></i> Contact employer</a>
                         </div>
                     </div>
                     ';
                 }
             }
             ?>
+        </div>
+        <!-- nw -->
+        <!-- message modal -->
+        <div class="message modal" id="message">
+            <!-- msg employer regarding -->
+            <div class="header">
+                <h2 class="msg-dny-hd"></h2>
+            </div>
+            <div class="body">
+                <form action="../reg_exe.php" method="post" enctype="multipart/form-data">
+                    <!-- msg title -->
+                    <div class="form-control">
+                        <label for="msg_title">Message title</label>
+                        <input type="text" name="msg_title" id="msg_title" placeholder="Message title" required>
+                        <input type="hidden" name="msg_id" id="msg_id">
+                    </div>
+                    <!-- msg body -->
+                    <div class="form-control">
+                        <label for="msg_body">Message body</label>
+                        <textarea name="msg_body" id="msg_body" cols="30" rows="10" placeholder="Message body" required></textarea>
+                    </div>
+                    <!-- msg attachment -->
+                    <div class="form-control">
+                        <label for="msg_attachment">Message attachment</label>
+                        <input type="file" name="msg_attachment" id="msg_attachment">
+                    </div>
+                    <!-- msg submit -->
+                    <div class="form-control msg_submit">
+                        <input type="submit" name="msg_submit" id="msg_submit" class="btn" value="Send message">
+                    </div>
+                </form>
+            </div>
         </div>
 
     </div>

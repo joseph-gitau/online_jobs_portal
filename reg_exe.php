@@ -309,3 +309,45 @@ if (isset($_POST['delete_posting'])) {
         echo 'success';
     }
 }
+// msg_submit
+if (isset($_POST['msg_submit'])) {
+    $uid = $_SESSION['user_id'];
+    $msg = mysqli_real_escape_string($conn, $_POST['msg']);
+    $title = mysqli_real_escape_string($conn, $_POST['title']);
+    $post_id = mysqli_real_escape_string($conn, $_POST['post_id']);
+    $place = mysqli_real_escape_string($conn, $_POST['place']);
+    if ($place == 'no_file') {
+        $file = '';
+    } else {
+        $file = $_FILES['image']['name'];
+    }
+    $errors = [];
+    if (empty($msg)) {
+        $errors['msg'] = 'Message is required';
+    }
+    if (empty($title)) {
+        $errors['title'] = 'Title is required';
+    }
+    if (count($errors) == 0) {
+        if (!empty($file)) {
+            // add user id to file name
+            $file = $uid . '_' . $file;
+            $target = "resources/msg/" . basename($file);
+
+            // move renamed file to folder
+            move_uploaded_file($_FILES['image']['tmp_name'], $target);
+        }
+        $sql = "INSERT INTO messages(u_id, m_title, m_msg, m_image, jp_id) VALUES('$uid', '$title', '$msg', '$file', '$post_id')";
+        $result = mysqli_query($conn, $sql);
+        if (!$result) {
+            echo 'Error: ' . mysqli_error($conn);
+        } else {
+            echo 'success';
+        }
+    } else {
+        // loop through the errors and display them
+        foreach ($errors as $error) {
+            echo '=> ' . $error;
+        }
+    }
+}

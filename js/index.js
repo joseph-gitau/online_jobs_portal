@@ -87,7 +87,7 @@ $(document).ready(function () {
 });
 
 function run_waitMe(effect) {
-    $('#container, #job-post').waitMe({
+    $('#container, #job-post, #msg_submit').waitMe({
 
         //none, rotateplane, stretch, orbit, roundBounce, win8, 
         //win8_linear, ios, facebook, rotation, timer, pulse, 
@@ -121,6 +121,39 @@ function run_waitMe(effect) {
         // callback
         onClose: function () { }
 
+    });
+}
+// custom run_waitMe
+function run_waitMe_custom(effect, container, text, textPos) {
+    effect = effect || 'roundBounce';
+    container = container || '#container';
+    $(container).waitMe({
+        //place text under the effect (string).
+        text: text || 'please wait...',
+
+        //background for container (string).
+        bg: 'rgba(255,255,255,0.7)',
+
+        //color for background animation and text (string).
+        color: '#000',
+
+        //max size
+        maxSize: '',
+
+        //wait time im ms to close
+        waitTime: -1,
+
+        //url to image
+        source: '',
+
+        //or 'horizontal'
+        textPos: textPos || 'vertical',
+
+        //font size
+        fontSize: '',
+
+        // callback
+        onClose: function () { }
     });
 }
 // edit_profile_pic preview
@@ -384,4 +417,65 @@ $('.edit-posting-d').click(function () {
     // open edit modal with data
 
 
+});
+// contact employer
+$('.contact-employer').click(function () {
+    //id
+    var id = $(this).attr('id');
+    // get title of job from .title class
+    var title = $(this).parent().parent().find('.title').text();
+    // console.log(title);
+    // append title to modal with .msg-dny-hd class
+    $('.msg-dny-hd').text('Contact Employer for ' + title);
+    // append id to modal with .msg_id class
+    $('.msg_id').val(id);
+});
+
+// msg_submit
+$('#msg_submit').click(function () {
+    event.preventDefault();
+    // run_waitMe_custom
+    run_waitMe_custom('stretch', '.msg_submit', 'Sending message...', 'horizontal');
+    // check if file is selected
+    if ($('#msg_attachment')[0].files[0] == '' || $('#msg_attachment')[0].files[0] == null || $('#msg_attachment')[0].files[0] == 'undefined') {
+        // resume = 'no_file' pass dummy value
+        place = 'no_file';
+    } else {
+        // resume = 'Yes' pass dummy value
+        place = 'Yes';
+    }
+    var formData = new FormData();
+    formData.append('msg_submit', true);
+    formData.append('msg', $('#msg_body').val());
+    formData.append('post_id', $('#msg_id').val());
+    formData.append('title', $('#msg_title').val());
+    formData.append('file', $('#msg_attachment')[0].files[0]);
+    formData.append('place', place);
+    // ajax
+    $.ajax({
+        url: '../reg_exe.php',
+        type: 'POST',
+        data: formData,
+        success: function (data) {
+            // hide run_waitMe_custom
+            $('.msg_submit').waitMe('hide');
+            if (data == "success") {
+                // swal success
+                swal({
+                    title: "Success",
+                    text: "Message sent successfully",
+                    icon: "success",
+                    button: "OK",
+                }).then(function () {
+                    // reload page
+                    location.reload();
+                });
+            } else {
+                // swal error
+                swal("Error", data, "error", {
+                    button: "OK",
+                });
+            }
+        }
+    });
 });
