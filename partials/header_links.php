@@ -1,3 +1,12 @@
+<?php
+$path_old =  dirname(__FILE__);
+$path2 = str_replace("\\", "/", $path_old);
+$path3 = str_replace($_SERVER['DOCUMENT_ROOT'], "", $path2);
+// replace partials with empty string
+$path = str_replace("partials", "", $path3);
+// echo $path;
+?>
+
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">

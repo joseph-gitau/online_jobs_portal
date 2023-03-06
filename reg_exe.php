@@ -92,19 +92,20 @@ if (isset($_POST['update_details'])) {
     $gender = mysqli_real_escape_string($conn, $_POST['gender']);
     $m_status = mysqli_real_escape_string($conn, $_POST['m_status']);
     $dob = mysqli_real_escape_string($conn, $_POST['dob']);
+    $temp = mysqli_real_escape_string($conn, $_POST['temp']);
     // $password = mysqli_real_escape_string($conn, $_POST['password']);
     $uid = $_SESSION['user_id'];
     // check if image exists
-    if (!empty($image)) {
+    if ($temp == "no_image") {
+        // get the image from the database
+        $sql0 = "SELECT u_image FROM users WHERE u_id='$uid'";
+        $result0 = mysqli_query($conn, $sql0);
+        $row0 = mysqli_fetch_assoc($result0);
+        $image = $row0['u_image'];
+    } else {
         $image = $_FILES['image']['name'];
         $target = "resources/images/" . basename($image);
-
-        // add user id to image name
-        $image = $uid . '_' . $image;
-        // move image to folder
         move_uploaded_file($_FILES['image']['tmp_name'], $target);
-    } else {
-        $image = '';
     }
 
     $sql = "UPDATE users SET u_name = '$name', u_username='$username',u_email='$email',u_phone='$phone',u_county='$county', u_address='$address',u_gender='$gender',u_m_status='$m_status',u_dob='$dob',u_image='$image' WHERE u_id='$uid'";

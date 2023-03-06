@@ -65,6 +65,7 @@ input {
   padding: 0.5rem 1rem;
   border-radius: 5px;
   outline: none;
+  width: 70%;
 }
 input:focus {
   border: 1px solid #0000ff;
@@ -182,14 +183,14 @@ textarea:focus {
 
 .profile,
 .qualification {
-  width: 80%;
+  width: 60%;
   margin: auto;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: 50px;
+  margin-top: 20px;
   margin-bottom: 50px;
 }
 
@@ -219,6 +220,8 @@ textarea:focus {
 }
 
 .form-control {
+  display: flex;
+  justify-content: space-between;
   width: 75%;
   margin: 10px 0;
 }
@@ -338,4 +341,24 @@ textarea:focus {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+.open-jobs {
+  width: 75%;
+  margin: auto;
+}
+.open-jobs .card {
+  width: auto;
+  margin: 10px;
+  background-color: #fff;
+  padding: 10px;
+}
+.employee-recommendation .card-header {
+  justify-content: flex-start !important;
+}
+.profile-img img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 10px;
 }

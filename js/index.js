@@ -170,6 +170,11 @@ $("#update_details").click(function () {
     event.preventDefault();
     run_waitMe();
     var file = $('#image')[0].files[0];
+    if ((file == undefined) || (file == null)) {
+        temp = "no_image";
+    } else {
+        temp = "image";
+    }
     var formData = new FormData();
     formData.append('update_details', true);
     formData.append('name', $('#name').val());
@@ -183,6 +188,7 @@ $("#update_details").click(function () {
     formData.append('dob', $('#dob').val());
     formData.append('password', $('#password').val());
     formData.append('image', file);
+    formData.append('temp', temp);
     $.ajax({
         url: '../reg_exe.php',
         type: 'POST',
@@ -242,8 +248,8 @@ $(function () {
                         icon: "success",
                         button: "OK",
                     }).then(function () {
-                        // Redirect the user to referer page
-                        window.location = referer_page;
+                        // Redirect the user to usertype page
+                        window.location.href = "usertype.php";
                     });
                     /* swal("Success", "You have been registered successfully", "success", {
                         button: "OK",
@@ -415,7 +421,6 @@ $('.edit-posting-d').click(function () {
     // get id
     var id = $(this).attr('id');
     // open edit modal with data
-
 
 });
 // contact employer

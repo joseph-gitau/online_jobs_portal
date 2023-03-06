@@ -4,13 +4,18 @@ unset($_SESSION['user_id']);
 unset($_SESSION['username']);
 unset($_SESSION['user_type']); */
 // if session is not set then start session
+$path_old =  dirname(__FILE__);
+$path2 = str_replace("\\", "/", $path_old);
+$path3 = str_replace($_SERVER['DOCUMENT_ROOT'], "", $path2);
+// replace partials with empty string
+$path = str_replace("partials", "", $path3);
 if (!isset($_SESSION)) {
     session_start();
 }
 // if $_SESSION['id'] and $_SESSION['username] is not set then redirect to login page with the page as referer page
 if (!isset($_SESSION['user_id']) && !isset($_SESSION['username'])) {
     $_SESSION['referer_page'] = $_SERVER['REQUEST_URI'];
-    header("Location: ../auth/login.php");
+    header("Location: " . $path . "auth/login.php");
 } else {
     $user_type = $_SESSION['user_type'];
     $user_id = $_SESSION['user_id'];

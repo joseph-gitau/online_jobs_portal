@@ -54,6 +54,10 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['username'])) {
                 $gender = $row['u_gender'];
                 $marital_status = $row['u_m_status'];
                 $dob = $row['u_dob'];
+                $image = $row['u_image'];
+                if ($image == "") {
+                    $image = "default_profile.jpg";
+                }
 
                 ?>
                 <!-- header -->
@@ -116,7 +120,7 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['username'])) {
                 </div>
                 <!-- image -->
                 <div class="preview">
-                    <img id="profile_pic_preview" src="../Resources/images/profile/<?php echo $image; ?>">
+                    <img id="profile_pic_preview" src="../resources/images/<?php echo $image; ?>">
                 </div>
                 <div class="form-control">
                     <label for="image">Image</label>
