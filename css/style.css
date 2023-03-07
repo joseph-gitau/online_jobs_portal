@@ -83,9 +83,9 @@ button {
   cursor: pointer;
 }
 p {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 500;
-  color: #000;
+  color: gray;
   margin-bottom: 1rem;
 }
 textarea {
@@ -225,6 +225,10 @@ textarea:focus {
   width: 75%;
   margin: 10px 0;
 }
+#job-post .form-control,
+#message .form-control {
+  width: 100% !important;
+}
 .uploaded {
   width: 75%;
   margin: 10px 0;
@@ -361,4 +365,195 @@ textarea:focus {
   border-radius: 50%;
   object-fit: cover;
   margin: 10px;
+}
+.message-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 10px 0;
+}
+.message-container .left {
+  width: 30%;
+  display: flex;
+  padding: 10px;
+}
+.message-container .right {
+  width: 70%;
+  display: flex;
+  background-color: #f7f2f9;
+  padding: 10px;
+}
+.message-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.message-list .list {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  /* margin: 10px 0; */
+  border-bottom: 1px solid #ccc;
+}
+.mactive {
+  background: #d9cdda;
+}
+.message-list .list .list-icon {
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.message-list .list .list-icon img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.message-list .list .list-name {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 10px;
+}
+.message-body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.msg-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 10px 0;
+}
+.text-cont-view {
+  display: flex;
+  flex-direction: column;
+}
+.msg-content .text-cont-view .other {
+  width: 70%;
+  align-self: flex-start;
+  background-color: #d2faaf;
+  padding: 10px;
+  border-radius: 10px;
+  color: #000;
+}
+.msg-content .text-cont-view .self {
+  width: 70%;
+  align-self: flex-end;
+  background-color: #b1c8ed;
+  padding: 10px;
+  border-radius: 10px;
+  color: #000;
+}
+.message-body form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.message-body form .form-control {
+  width: 100% !important;
+}
+.message-body form textarea {
+  width: 100% !important;
+  height: 100px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 0;
+}
+.message-body form button {
+  width: 100px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  background-color: #000;
+  color: #fff;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+.jobseeker-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.jobseeker-card {
+  background-color: #f8f8f8;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  padding: 20px;
+  /* width: calc(33.33% - 20px); */
+  width: 45%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.jobseeker-card img {
+  border-radius: 50%;
+  height: 60px;
+  margin-right: 10px;
+  width: 60px;
+}
+
+.jobseeker-card-header-left-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100px;
+}
+
+.jobseeker-card-header-left-info-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.jobseeker-card-header-left-info-address {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.jobseeker-card-header-left-info-email {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.jobseeker-card-header-left-info-email-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.jobseeker-card-header-right,
+.jobseeker-card-header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-left: auto;
+  padding: 20px 0;
+  margin-top: 20px;
+}
+
+.jobseeker-card-header-right a {
+  margin-bottom: 10px;
+}
+i {
+  font-size: 1.5rem;
+  margin: 0 5px;
 }

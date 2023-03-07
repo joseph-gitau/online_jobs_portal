@@ -313,42 +313,103 @@ if (isset($_POST['delete_posting'])) {
 // msg_submit
 if (isset($_POST['msg_submit'])) {
     $uid = $_SESSION['user_id'];
-    $msg = mysqli_real_escape_string($conn, $_POST['msg']);
-    $title = mysqli_real_escape_string($conn, $_POST['title']);
-    $post_id = mysqli_real_escape_string($conn, $_POST['post_id']);
+    $emp_id = $_POST['emp_id'];
+    $msg_id = $_POST['msg_id'];
+    $msg_title = mysqli_real_escape_string($conn, $_POST['msg_title']);
+    $msg_body = mysqli_real_escape_string($conn, $_POST['msg_body']);
     $place = mysqli_real_escape_string($conn, $_POST['place']);
     if ($place == 'no_file') {
         $file = '';
     } else {
-        $file = $_FILES['image']['name'];
+        $file = $_FILES['msg_attachment']['name'];
+        // var_dump($_FILES['msg_attachment']);
     }
     $errors = [];
-    if (empty($msg)) {
-        $errors['msg'] = 'Message is required';
+    if (empty($msg_title)) {
+        $errors['msg_title'] = 'Title is required';
     }
-    if (empty($title)) {
-        $errors['title'] = 'Title is required';
+    if (empty($msg_body)) {
+        $errors['msg_body'] = 'Message is required';
     }
-    if (count($errors) == 0) {
-        if (!empty($file)) {
-            // add user id to file name
-            $file = $uid . '_' . $file;
-            $target = "resources/msg/" . basename($file);
-
-            // move renamed file to folder
-            move_uploaded_file($_FILES['image']['tmp_name'], $target);
+    if (count($errors) > 0) {
+        // loop through the errors and display them
+        foreach ($errors as $error) {
+            echo '=> ' . $error;
         }
-        $sql = "INSERT INTO messages(u_id, m_title, m_msg, m_image, jp_id) VALUES('$uid', '$title', '$msg', '$file', '$post_id')";
+    } else {
+        // insert message to messages table
+        $sql = "INSERT INTO messages (u_id, jp_id, emp_id, m_title, m_message, m_attachment) VALUES ('$uid', '$msg_id', '$emp_id', '$msg_title', '$msg_body', '$file')";
         $result = mysqli_query($conn, $sql);
         if (!$result) {
             echo 'Error: ' . mysqli_error($conn);
         } else {
+            // move renamed file to folder if file is not empty
+            if (!empty($file)) {
+                // add user id to file name
+                $file = $uid . '_' . $file;
+                $target = "resources/messages/" . basename($file);
+
+                // move renamed file to folder
+                move_uploaded_file($_FILES['msg_attachment']['tmp_name'], $target);
+            }
             echo 'success';
         }
-    } else {
-        // loop through the errors and display them
-        foreach ($errors as $error) {
-            echo '=> ' . $error;
+    }
+}
+
+// view_msg_deft
+if (isset($_POST['view_msg_deft'])) {
+    $user_id = $_SESSION['user_id'];
+    $id = $_POST['id'];
+    $sql = "SELECT * FROM messages WHERE jp_id = '$id'";
+    $result = mysqli_query($conn, $sql);
+    $tot = mysqli_num_rows($result);
+    if ($tot > 0) {
+        // expandable variable to hold the messages
+        $msg = '';
+        $i = 0;
+        $j = 0;
+        while ($row = mysqli_fetch_assoc($result)) {
+            $uid = $row['u_id'];
+            $jp_id = $row['jp_id'];
+            $emp_id = $row['emp_id'];
+            $subject = $row['m_title'];
+            $message = $row['m_message'];
+            $sql1 = "SELECT role_id FROM users WHERE u_id = '$uid'";
+            $result1 = mysqli_query($conn, $sql1);
+            $row1 = mysqli_fetch_assoc($result1);
+            $role_id = $row1['role_id'];
+            // echo $role_id;
+            if ($role_id == 2) {
+                if ($i == 0) {
+                    echo '<p class="self">' . $message . '</p>
+                    <span class="hidden msg-title">' . $subject . '</span>
+                    <span class="hidden jpr_id">' . $jp_id . '</span>
+                    <span class="hidden emp_id">' . $emp_id . '</span>
+                    ';
+                    $i++;
+                } else {
+                    echo '<p class="other">' . $message . '</p>
+                    <span class="hidden msg-title">' . $subject . '</span>
+                    ';
+                    $i++;
+                }
+            } else {
+                if ($j == 0) {
+                    echo '<p class="self">' . $message . '</p>
+                    <span class="hidden msg-title">' . $subject . '</span>
+                    <span class="hidden jpr_id">' . $jp_id . '</span>
+                    <span class="hidden emp_id">' . $emp_id . '</span>
+                    ';
+                    $j++;
+                } else {
+                    echo '<p class="other">' . $message . '</p>
+                    <span class="hidden msg-title">' . $subject . '</span>
+                    ';
+                }
+            }
+            // reset role_id
+            $role_id = '';
         }
     }
 }

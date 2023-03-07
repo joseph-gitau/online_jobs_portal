@@ -176,6 +176,7 @@
             jp_id INT(11) NOT NULL,
             m_title VARCHAR(255) NOT NULL,
             m_message TEXT NOT NULL,
+            m_attachment VARCHAR(255) NOT NULL,
             m_status VARCHAR(10) NOT NULL,
             m_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )";

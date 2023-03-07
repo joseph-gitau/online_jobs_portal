@@ -441,28 +441,28 @@ $('#msg_submit').click(function () {
     event.preventDefault();
     // run_waitMe_custom
     run_waitMe_custom('stretch', '.msg_submit', 'Sending message...', 'horizontal');
-    // check if file is selected
-    if ($('#msg_attachment')[0].files[0] == '' || $('#msg_attachment')[0].files[0] == null || $('#msg_attachment')[0].files[0] == 'undefined') {
-        // resume = 'no_file' pass dummy value
+    var file = $('#msg_attachment')[0].files[0];
+    if (file == '' || file == null || file == 'undefined') {
         place = 'no_file';
     } else {
-        // resume = 'Yes' pass dummy value
         place = 'Yes';
     }
     var formData = new FormData();
     formData.append('msg_submit', true);
-    formData.append('msg', $('#msg_body').val());
-    formData.append('post_id', $('#msg_id').val());
-    formData.append('title', $('#msg_title').val());
-    formData.append('file', $('#msg_attachment')[0].files[0]);
+    formData.append('msg_id', $('#msg_id').val());
+    formData.append('emp_id', $('#emp_id').val());
+    formData.append('msg_title', $('#msg_title').val());
+    formData.append('msg_body', $('#msg_body').val());
+    formData.append('msg_attachment', file);
     formData.append('place', place);
-    // ajax
     $.ajax({
         url: '../reg_exe.php',
         type: 'POST',
         data: formData,
+        contentType: false,
+        processData: false,
         success: function (data) {
-            // hide run_waitMe_custom
+            // hide custom waitme
             $('.msg_submit').waitMe('hide');
             if (data == "success") {
                 // swal success
@@ -476,11 +476,61 @@ $('#msg_submit').click(function () {
                     location.reload();
                 });
             } else {
+                // console.log(data);
                 // swal error
                 swal("Error", data, "error", {
                     button: "OK",
                 });
             }
+
         }
     });
+});
+// submit contact message  ---------------------------------------------------------------------------------
+/* $("#msg_submitx").click(function () {
+    event.preventDefault();
+    // show waitme
+    run_waitMe_custom('stretch', '.msg_submit', 'Sending message...', 'horizontal');
+    // check if file is selected
+}); 
+---------------------------------------------------------------------------------
+*/
+// view-msg-deft
+$('.view-msg-deft').click(function () {
+    event.preventDefault();
+    // add custom waitme to msg-content
+    run_waitMe_custom('stretch', '.msg-content', 'Loading message...', 'horizontal');
+    // get id
+    var id = $(this).attr('id');
+    // ajax
+    $.ajax({
+        url: '../reg_exe.php',
+        type: 'POST',
+        data: {
+            view_msg_deft: true,
+            id: id,
+        },
+        success: function (data) {
+            // hide custom waitme
+            $('.msg-content').waitMe('hide');
+            // append data to modal
+            $('.text-cont-view').html(data);
+            // console.log(data);
+            // wrap response in a jQuery object
+            var data = $('<div>').html(data);
+            // get title of message from data
+            var title = $(data).find('.msg-title').text();
+            // append title to modal
+            $('.message-title-auto').text(title);
+            // console.log(title);
+            var jpr_id = $(data).find('.jpr_id').text();
+            // msg_id val to id
+            $('#msg_id').val(jpr_id);
+            var emp_id = $(data).find('.emp_id').text();
+            // emp_id val to id
+            $('#emp_id').val(emp_id);
+            $('#msg_title').val(title);
+        }
+    });
+
 });

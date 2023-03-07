@@ -147,7 +147,7 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['username'])) {
                 <!-- job category -->
                 <div class="form-control">
                     <label for="job-category">Job category</label>
-                    <select name="job-category" id="job-category" class="chosen-select">
+                    <select name="job-category" id="job-category" class="chosen-select" multiple>
                         <option value="php">PHP</option>
                         <option value="javascript">Javascript</option>
                         <option value="python">Python</option>

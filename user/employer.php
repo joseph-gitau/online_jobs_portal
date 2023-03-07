@@ -91,7 +91,7 @@ unset($_SESSION['user_type']); */
                                 }
                             }
                         }
-                        print_r($matched_keywords_id);
+                        // print_r($matched_keywords_id);
                         // echo matched keywords to script tag
                         echo "<script>var matched_keywords_id = " . json_encode($matched_keywords_id) . ";</script>";
                         // get user details from user table using id from matched_keywords_id array
@@ -125,7 +125,7 @@ unset($_SESSION['user_type']); */
                                 }
                             }
                         }
-                        print_r($matched_users);
+                        // print_r($matched_users);
                         // echo matched users to script tag
                         echo "<script>var matched_users = " . json_encode($matched_users) . ";</script>";
                         // loop through matched_users array and display user details
@@ -214,7 +214,7 @@ unset($_SESSION['user_type']); */
                     </div>
 
                     <!-- Link to open the modal -->
-                    <p><a href="#ex1" rel="modal:open">Open Modal</a></p>
+                    <!-- <p><a href="#ex1" rel="modal:open">Open Modal</a></p> -->
                     <!-- nw -->
                 </div>
             </div>

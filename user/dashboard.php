@@ -50,6 +50,7 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['username'])) {
             if ($resultCheck > 0) {
                 while ($row = mysqli_fetch_assoc($result)) {
                     $attachment = $row['jp_image'];
+                    $emp_id = $row['u_id'];
                     echo '
                     <div class="card">
                         <div class="card-header">
@@ -82,7 +83,7 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['username'])) {
 
                     echo '</div>
                         <div class="card-footer">
-                            <a href="#message" rel="modal:open" class="btn contact-employer" id="' . $row['jp_id'] . '"><i class="fas fa-phone"></i> Contact employer</a>
+                            <a href="#message" rel="modal:open" class="btn contact-employer" id="' . $emp_id . '" jpid="' . $row['jp_id'] . '"><i class="fas fa-phone"></i> Contact employer</a>
                         </div>
                     </div>
                     ';
@@ -95,10 +96,12 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['username'])) {
         <div class="message modal" id="message">
             <!-- msg employer regarding -->
             <div class="header">
-                <h2 class="msg-dny-hd"></h2>
+                <h3 class="msg-dny-hd"></h3>
             </div>
             <div class="body">
                 <form action="../reg_exe.php" method="post" enctype="multipart/form-data">
+                    <!-- hidden employer id -->
+                    <input type="hidden" name="emp_id" id="emp_id">
                     <!-- msg title -->
                     <div class="form-control">
                         <label for="msg_title">Message title</label>
@@ -129,6 +132,25 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['username'])) {
     // include footer_scripts.php
     include '../partials/footer_scripts.php';
     ?>
+
+    <script>
+        $(".contact-employer").click(function() {
+            // get this id
+            var emp_id = $(this).attr("id");
+            // set this id to hidden input
+            $("#emp_id").val(emp_id);
+            // console.log(emp_id); 
+            // get job title
+            var job_title = $(this).parent().parent().find(".title").text();
+            // console.log(job_title);
+            // set job title to msg_title
+            $("#msg_title").val(job_title);
+            // get attribute jpid
+            var job_id = $(this).attr("jpid");
+            // console.log(job_id);
+            $("#msg_id").val(job_id);
+        });
+    </script>
 </body>
 
 </html>
